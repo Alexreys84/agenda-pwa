@@ -10,4 +10,4 @@
 # Autor
 Alex dos Reis
 
-![QrCode](https://github.com/Alexreys84/agenda)
+![QrCode](https://github.com/Alexreys84/agendaqrcode_github.com)
