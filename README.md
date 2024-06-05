@@ -10,5 +10,9 @@
 # Autor
 Alex dos Reis
 
-![QrCode](https://github.com/Alexreys84/agenda/assets/129780074/1a99863d-c8d5-40bf-bced-7ad85e674bfd)
+# Agenda
+Este repositório hospeda o projeto de um Web app !
+
+## Acessar Site
+
 
