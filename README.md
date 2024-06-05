@@ -9,3 +9,5 @@
 
 # Autor
 Alex dos Reis
+
+![QrCode]()
