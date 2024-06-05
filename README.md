@@ -6,5 +6,6 @@
             alt="CSS válido!" />
     </a>
 </p>
- # Autor 
- Alex dos Reis 
+
+# Autor
+Alex dos Reis
