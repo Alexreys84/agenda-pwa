@@ -8,7 +8,7 @@ const urlsToCache = [
   '/style.css',
   '/app.js',
   '/sw.js', 
-  '/list.png'
+  '/list.png',
   '/icon.png'
 ]
 
