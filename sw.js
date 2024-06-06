@@ -25,14 +25,34 @@ self.addEventListener('install', (event) => {
 // Interceptando as solicitações de rede e servindo arquivos do cache quando offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Se o arquivo está no cache, serve o arquivo do cache
-        if (response) {
-          return response
-        }
-        // Caso contrário, faz uma solicitação de rede
-        return fetch(event.request)
+    caches.open(cachePWA)
+      .then((cache) => {
+        return cache.match(event.request)
+          .then((response) => {
+            // Se o arquivo está no cache, serve o arquivo do cache
+            if (response) {
+              return response;
+            }
+
+            // Caso contrário, faz uma solicitação de rede
+            return fetch(event.request)
+              .then((networkResponse) => {
+                // Se a solicitação for bem-sucedida, armazena a resposta em cache
+                if (networkResponse.ok) {
+                  cache.put(event.request, networkResponse.clone());
+                }
+                return networkResponse;
+              })
+              .catch(() => {
+                // Se a solicitação falhar, retorna uma resposta padrão
+                // Ou uma página de erro personalizada
+                return new Response('Você está offline', {
+                  status: 503,
+                  statusText: 'Offline'
+                });
+              });
+          });
       })
-  )
-})
+  );
+});
+
