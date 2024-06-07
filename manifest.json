@@ -1,19 +1,29 @@
 {
-    "name": "Agenda",
-    "short_name": "Agenda",
-    "start_url": "/agenda/",
-    "display": "standalone",
-    "orientation": "portrait",
-    "icons": [
-      {
-        "src": "icon.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "list.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ]
-  }
+  "name": "Agenda",
+  "short_name": "Agenda",
+  "start_url": "/agenda/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0000ff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "list.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "splash_screens": [
+    {
+      "src": "splash-screen.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "density": 1.0
+    }
+  ]
+}

@@ -1,38 +1,26 @@
-// Nome do cache (Controle de versão)
-const cachePWA = 'cache-v1'
-// Arquivos a serem armazenados em cache
-// todos os arquivos deve ser adicionados ao vetor(exeto o manifesto)
-const urlsToCache = [
-  '/',
-  '/index.html', 
-  '/style.css',
-  '/app.js',
-  '/sw.js', 
-  '/list.png',
-  '/icon.png'
-]
-
-// Instalando o Service Worker e armazenando os arquivos no cache
 self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installed');
   event.waitUntil(
-    caches.open(cachePWA)
-      .then((cache) => {
-        return cache.addAll(urlsToCache)
-      })
-  )
-})
+    caches.open('v1').then((cache) => {
+      // Adiciona arquivos ao cache durante a instalação
+      return cache.addAll([
+        '/',
+        '/index.html',
+        '/style.css',
+        '/app.js',
+        '/manifest.json',
+        '/icon.png',
+        '/list.png'
+      ]);
+    })
+  );
+});
 
-// Interceptando as solicitações de rede e servindo arquivos do cache quando offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Se o arquivo está no cache, serve o arquivo do cache
-        if (response) {
-          return response
-        }
-        // Caso contrário, faz uma solicitação de rede
-        return fetch(event.request)
-      })
-  )
-})
+    caches.match(event.request).then((response) => {
+      // Retorna a resposta em cache ou faz uma nova solicitação
+      return response || fetch(event.request);
+    })
+  );
+});
