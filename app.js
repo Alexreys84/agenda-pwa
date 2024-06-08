@@ -1,31 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const loader = document.getElementById('loader');
-  const main = document.querySelector('main');
+  const formularioTarefa = document.getElementById('task-form');
+  const listaTarefas = document.getElementById('task-list');
+  const botaoInstalar = document.getElementById('install-button');
+  let promptAdiado;
 
-  // Esconde o loader e exibe o conteúdo principal após o carregamento da página
-  window.addEventListener('load', function() {
-    loader.style.display = 'none';
-    main.style.display = 'block';
-    document.body.style.overflow = 'auto'; // Permite o scroll após o carregamento
+  formularioTarefa.addEventListener('submit', evento => {
+    evento.preventDefault();
+    const tituloTarefa = document.getElementById('task-title').value;
+    const dataTarefa = document.getElementById('task-date').value;
+    const horaTarefa = document.getElementById('task-time').value;
+
+    if (tituloTarefa && dataTarefa && horaTarefa) {
+      const itemTarefa = document.createElement('li');
+      itemTarefa.innerHTML = `<span><strong>${tituloTarefa}</strong></span>
+                              <span>${dataTarefa} ${horaTarefa}</span>`;
+
+      const botaoConcluir = document.createElement('button');
+      botaoConcluir.textContent = 'Concluir';
+      botaoConcluir.addEventListener('click', () => {
+        itemTarefa.classList.toggle('completed');
+      });
+
+      const botaoExcluir = document.createElement('button');
+      botaoExcluir.textContent = 'Excluir';
+      botaoExcluir.addEventListener('click', () => {
+        listaTarefas.removeChild(itemTarefa);
+      });
+
+      itemTarefa.appendChild(botaoConcluir);
+      itemTarefa.appendChild(botaoExcluir);
+
+      listaTarefas.appendChild(itemTarefa);
+
+      formularioTarefa.reset();
+    }
   });
 
-  const taskForm = document.getElementById('task-form');
-  const taskList = document.getElementById('task-list');
+  // Instalar PWA
+  window.addEventListener('beforeinstallprompt', (evento) => {
+    // Prevenir que a mini barra de informações apareça no mobile
+    evento.preventDefault();
+    // Armazenar o evento para poder ser disparado mais tarde
+    promptAdiado = evento;
+    // Atualizar a UI para notificar o usuário que ele pode instalar o PWA
+    botaoInstalar.style.display = 'block';
 
-  // Adiciona uma nova tarefa à lista quando o formulário é enviado
-  taskForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const taskTitle = document.getElementById('task-title').value;
-    const taskDate = document.getElementById('task-date').value;
-    const taskTime = document.getElementById('task-time').value;
-
-    // Cria um novo item de lista para a tarefa
-    const li = document.createElement('li');
-    li.textContent = `${taskTitle} - ${taskDate} ${taskTime}`;
-    taskList.appendChild(li);
-
-    // Limpa o formulário após a submissão
-    taskForm.reset();
+    botaoInstalar.addEventListener('click', () => {
+      // Esconder o botão de instalar
+      botaoInstalar.style.display = 'none';
+      // Mostrar o prompt de instalação
+      promptAdiado.prompt();
+      // Aguardar a resposta do usuário ao prompt
+      promptAdiado.userChoice.then((resultadoEscolha) => {
+        if (resultadoEscolha.outcome === 'accepted') {
+          console.log('Usuário aceitou o prompt de instalação');
+        } else {
+          console.log('Usuário rejeitou o prompt de instalação');
+        }
+        promptAdiado = null;
+      });
+    });
   });
 });
