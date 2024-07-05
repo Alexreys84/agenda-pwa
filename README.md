@@ -18,5 +18,3 @@ Este repositório hospeda o projeto de um Web app !
 
 ## Acessar Site
 
-![qrcode_alexreys84 github io](https://github.com/Alexreys84/agenda/assets/129780074/7fd7892a-9cce-4f96-85d5-00d1fc895d32)
-
