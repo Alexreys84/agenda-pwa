@@ -17,4 +17,5 @@ Alex dos Reis
 Este repositório hospeda o projeto de um Web app !
 
 ## Acessar Site
+![qrcode_alexreys84 github io](https://github.com/Alexreys84/agenda-pwa/assets/129780074/e8f0fb75-73cf-47e8-b3a1-56b4d0896949)
 
